@@ -58,9 +58,9 @@ final class IServConfiguratorTest extends TestCase
                 $this->returnCallBack(
                     function($path) {
                         switch($path) {
-                            case 'plugins.configurator.configurator_tree.steps':
+                            case 'plugins.i-serv-configurator.configurator_tree.steps':
                                 return Yaml::parse(file_get_contents(__DIR__ . '/configurator_tree.mock.yaml'));
-                            case 'plugins.configurator.configurator_choices':
+                            case 'plugins.i-serv-configurator.configurator_choices':
                                 return Yaml::parse(file_get_contents(__DIR__ . '/configurator_choices.mock.yaml'));   
                         }    
                     }

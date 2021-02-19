@@ -3,6 +3,7 @@ namespace Grav\Plugin;
 
 use Composer\Autoload\ClassLoader;
 use Grav\Common\Plugin;
+use Grav\Plugin\IServConfigurator\Configurator;
 
 /**
  * Class IServConfiguratorPlugin
@@ -70,6 +71,7 @@ class IServConfiguratorPlugin extends Plugin
     public function onTwigSiteVariables()
     {
         $twig = $this->grav['twig'];
-        $twig->twig_vars['configurator'] = 'Konfigurator Testvar OK';
+        $configurator = new Configurator($this->grav['config'], $this->grav['session']);
+        $twig->twig_vars['configurator'] = '<pre style="font-size: 10px; line-height: 11px">' . print_r($configurator->getState(), true) . '</pre>';
     }
 }

@@ -7,12 +7,12 @@ use Grav\Common\Session;
 
 class Configurator
 {
-    protected $steps, $choices, $state;
+    protected $configured_steps, $configured_choices, $state;
 
     public function __construct(Config $config, Session $session)
     {
-        $this->configured_steps = $config->get('plugins.configurator.configurator_tree.steps');
-        $this->configured_choices = $config->get('plugins.configurator.configurator_choices');
+        $this->configured_steps = $config->get('plugins.i-serv-configurator.configurator_tree.steps');
+        $this->configured_choices = $config->get('plugins.i-serv-configurator.configurator_choices');
 
         $step_index = 1;
         if (empty($session->configurator)) {
