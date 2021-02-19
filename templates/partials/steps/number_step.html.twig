@@ -1,0 +1,16 @@
+{% block number_step %}
+    <form
+        class="configurator-step-form"
+        method="post"
+        action="{{ configurator.form_target }}">
+        <input type="hidden" name="step_id" value="{{ step.id }}">
+        <div>
+            <h5>{{ step.title }}</h5>
+            <input type="number">
+        </div>
+        {% if step.id != 1 %}
+            <button name="action" value="back">Zurück</button>
+        {% endif %}
+        <button name="action" value="confirm">Bestätigen</button>
+    </form>
+{% endblock %}

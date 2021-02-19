@@ -1,0 +1,25 @@
+{% block radio_step %}
+    <form 
+        class="configurator-step-form"
+        method="post"
+        action="{{ configurator.form_target }}">
+        <input type="hidden" name="step_id" value="{{ step.id }}">
+        <h5>{{ step.title }}</h5>
+        <fieldset>
+            {% for choice in step.choices %}
+                <div>
+                    <input 
+                        type="radio" 
+                        id="step-{{ step.id }}-choice-{{ choice.id }}" 
+                        name="choice" 
+                        value="{{choice.id}}">
+                    <label for="step-{{ step.id }}-choice-{{ choice.id }}">{{ choice.name }}</label> 
+                </div>
+            {% endfor %}
+        </fieldset>
+        {% if step.id != 1 %}
+            <button name="action" value="back">Zurück</button>
+        {% endif %}
+        <button name="action" value="confirm">Bestätigen</button>
+    </form>
+{% endblock %}

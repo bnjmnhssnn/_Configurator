@@ -1,0 +1,8 @@
+{% block configurator %}
+<section id="configurator">
+    {% for step in configurator.steps %}
+        {% include "partials/steps/#{step.type}_step.html.twig" %}
+    {% endfor %}
+</section>
+{{ configurator.debug_state }}
+{% endblock %}

@@ -49,6 +49,26 @@ final class IServConfiguratorTest extends TestCase
         $this->assertEquals($expected_state, $configurator->getState());
     }
 
+    public function testTwigVarsOutput() : void
+    {
+        $config_mock = $this->getConfigMock();
+        $session_mock = $this->getSessionMock();
+        $configurator = new Configurator($config_mock, $session_mock);
+        // Vorerst nur testen, ob der erste Step korrekt erzeugt wird, später ausführlicher
+        $expected = [
+            'id' => 1,
+            'visible' => true,
+            'title' => 'Schultyp wählen',
+            'type' => 'radio',
+            'choices' => [
+                ['id' => 1, 'name' => 'Grund- oder Förderschule', 'type' => 'school_type'],
+                ['id' => 2, 'name' => 'Weiterführende Schule', 'type' => 'school_type'],
+                ['id' => 3, 'name' => 'Berufsschule', 'type' => 'school_type'],
+            ]
+        ];
+        $this->assertEquals($expected, $configurator->getTwigVars()['steps'][0]);
+    }
+
     protected function getConfigMock()
     {
         $mock = $this->getMockBuilder('Grav\Common\Config\Config')->setMethods(['get'])->getMock();

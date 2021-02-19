@@ -3,5 +3,5 @@
 {% block content %}
 configurator_page
 {{ page.content|raw }}
-{{ configurator }}
+{% include "configurator.html.twig" %}
 {% endblock %}

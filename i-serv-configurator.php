@@ -72,6 +72,6 @@ class IServConfiguratorPlugin extends Plugin
     {
         $twig = $this->grav['twig'];
         $configurator = new Configurator($this->grav['config'], $this->grav['session']);
-        $twig->twig_vars['configurator'] = '<pre style="font-size: 10px; line-height: 11px">' . print_r($configurator->getState(), true) . '</pre>';
+        $twig->twig_vars['configurator'] = $configurator->getTwigVars();
     }
 }
