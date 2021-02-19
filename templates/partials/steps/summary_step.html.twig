@@ -1,0 +1,23 @@
+{% block summary_step %}
+    <div 
+        id="step-{{ step.id }}"
+        {% if step.visible %}
+            {% set classes = 'configurator-step-wrapper' %} 
+        {% else %}
+            {% set classes = 'configurator-step-wrapper step-hidden' %}  
+        {% endif %}
+        class="{{ classes }}">
+        <form 
+            class="configurator-step-form"
+            method="post"
+            action="{{ configurator.form_target }}">
+            <input type="hidden" name="step_id" value="{{ step.id }}">
+            <h4>{{ step.title }}</h4>
+            
+            {% if step.id != 1 %}
+                <button type="button" class="configurator-step-btn back-btn">Zurück</button>
+            {% endif %}
+            <button type="button" class="configurator-step-btn confirm-btn">Anfrage senden</button>
+        </form>
+    </div>
+{% endblock %}

@@ -17,12 +17,14 @@ final class IServConfiguratorTest extends TestCase
                 ['id' => 2, 'visible' => false, 'choice' => NULL],
                 ['id' => 3, 'visible' => false, 'choice' => NULL],
                 ['id' => 4, 'visible' => false, 'choice' => NULL],
-                ['id' => 5, 'visible' => false, 'choice' => NULL]
-            ]
+                ['id' => 5, 'visible' => false, 'choice' => NULL],
+                ['id' => 6, 'visible' => false]
+            ],
+            'ready' => false
         ];
         $this->assertEquals($expected_state, $configurator->getState());
     }
-
+    
     public function testRestoreStateFromSession() : void
     {
         $config_mock = $this->getConfigMock();
@@ -33,8 +35,10 @@ final class IServConfiguratorTest extends TestCase
                 ['id' => 2, 'visible' => true, 'choice' => NULL],
                 ['id' => 3, 'visible' => false, 'choice' => NULL],
                 ['id' => 4, 'visible' => false, 'choice' => NULL],
-                ['id' => 5, 'visible' => false, 'choice' => NULL]
-            ]
+                ['id' => 5, 'visible' => false, 'choice' => NULL],
+                ['id' => 6, 'visible' => false]
+            ],
+            'ready' => false
         ];
         $configurator = new Configurator($config_mock, $session_mock);
         $expected_state = [
@@ -43,8 +47,10 @@ final class IServConfiguratorTest extends TestCase
                 ['id' => 2, 'visible' => true, 'choice' => NULL],
                 ['id' => 3, 'visible' => false, 'choice' => NULL],
                 ['id' => 4, 'visible' => false, 'choice' => NULL],
-                ['id' => 5, 'visible' => false, 'choice' => NULL]
-            ]
+                ['id' => 5, 'visible' => false, 'choice' => NULL],
+                ['id' => 6, 'visible' => false]
+            ],
+            'ready' => false
         ];
         $this->assertEquals($expected_state, $configurator->getState());
     }
@@ -67,13 +73,16 @@ final class IServConfiguratorTest extends TestCase
                 ['id' => 2, 'visible' => true, 'choice' => NULL],
                 ['id' => 3, 'visible' => false, 'choice' => NULL],
                 ['id' => 4, 'visible' => false, 'choice' => NULL],
-                ['id' => 5, 'visible' => false, 'choice' => NULL]
-            ]
+                ['id' => 5, 'visible' => false, 'choice' => NULL],
+                ['id' => 6, 'visible' => false]
+            ],
+            'ready' => false
         ];
         $configurator->updateState($post_vars);
         $this->assertEquals($expected_state_after_update, $configurator->getState());   
     }
 
+    
     public function testStateUpdateBack() : void
     {
         $config_mock = $this->getConfigMock();
@@ -87,8 +96,10 @@ final class IServConfiguratorTest extends TestCase
                 ['id' => 2, 'visible' => false, 'choice' => 4],
                 ['id' => 3, 'visible' => true, 'choice' => NULL],
                 ['id' => 4, 'visible' => false, 'choice' => NULL],
-                ['id' => 5, 'visible' => false, 'choice' => NULL]
-            ]
+                ['id' => 5, 'visible' => false, 'choice' => NULL],
+                ['id' => 6, 'visible' => false]
+            ],
+            'ready' => false
         ];
         $configurator = new Configurator($config_mock, $session_mock);
 
@@ -103,11 +114,53 @@ final class IServConfiguratorTest extends TestCase
                 ['id' => 2, 'visible' => true, 'choice' => NULL],
                 ['id' => 3, 'visible' => false, 'choice' => NULL],
                 ['id' => 4, 'visible' => false, 'choice' => NULL],
-                ['id' => 5, 'visible' => false, 'choice' => NULL]
-            ]
+                ['id' => 5, 'visible' => false, 'choice' => NULL],
+                ['id' => 6, 'visible' => false]
+            ],
+            'ready' => false
         ];
         $configurator->updateState($post_vars);
         $this->assertEquals($expected_state_after_update, $configurator->getState());   
+    }
+
+
+    public function testReadyStateAfterLastStep() : void
+    {
+        $config_mock = $this->getConfigMock();
+        $session_mock = $this->getSessionMock();
+
+        $session_mock->configurator = [
+            'steps' => [
+                ['id' => 1, 'visible' => false, 'choice' => 1],
+                ['id' => 2, 'visible' => false, 'choice' => 2],
+                ['id' => 3, 'visible' => false, 'choice' => 3],
+                ['id' => 4, 'visible' => false, 'choice' => 4],
+                ['id' => 5, 'visible' => false, 'choice' => 5],
+                ['id' => 6, 'visible' => true]
+            ],
+            'ready' => false
+        ];
+        $configurator = new Configurator($config_mock, $session_mock);
+        $this->assertFalse($configurator->ready());   
+        // User bestätigt finalen Schritt 6
+        $post_vars = [
+            'step_id' => 6,
+            'action' => 'confirm'        
+        ];
+        $expected_state_after_update = [
+            'steps' => [
+                ['id' => 1, 'visible' => false, 'choice' => 1],
+                ['id' => 2, 'visible' => false, 'choice' => 2],
+                ['id' => 3, 'visible' => false, 'choice' => 3],
+                ['id' => 4, 'visible' => false, 'choice' => 4],
+                ['id' => 5, 'visible' => false, 'choice' => 5],
+                ['id' => 6, 'visible' => false]
+            ],
+            'ready' => true
+        ];
+        $configurator->updateState($post_vars);
+        $this->assertEquals($expected_state_after_update, $configurator->getState());
+        $this->assertTrue($configurator->ready());   
     }
 
 

@@ -48,6 +48,8 @@ class IServConfiguratorPlugin extends Plugin
 
     public function onPageInitialized()
     {
+        #$session = $this->grav['session']; unset($session->configurator);
+
         $request = $this->grav['request'];
         if($request->getMethod() === 'POST') {
             $configurator = new Configurator($this->grav['config'], $this->grav['session']);
@@ -57,7 +59,6 @@ class IServConfiguratorPlugin extends Plugin
             $session->configurator = $new_state;
             header('Content-Type: application/json');
             echo json_encode($new_state);
-            #unset($session->configurator);
             exit;
         }
     }
