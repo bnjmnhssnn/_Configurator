@@ -15,62 +15,58 @@ class Configurator
         $this->configured_choices = $config->get('plugins.i-serv-configurator.configurator_choices');
         $this->form_target = $config->get('plugins.i-serv-configurator.configurator_form_target');
 
-        $step_index = 1;
         if (empty($session->configurator)) {
-            $this->state = [
-                'steps' => array_map(
-                    function($step) use (&$step_index) {
-                        $res = [
-                            'id' => $step_index,
-                            'visible' => ($step_index === 1)                        
-                        ];
-                        if($step_index < count($this->configured_steps)) {
-                            $res['choice'] = NULL;
-                        }
-                        $step_index++;
-                        return $res;
-                    },
-                    $this->configured_steps
-                ),
-                'ready' => false
-            ];
+            $this->state = $this->buildInitialState(count($this->configured_steps));
         } else {
             $this->state = $session->configurator;    
         }
     }
 
+    protected function buildInitialState(int $step_count) : array
+    {
+        $steps = [];
+        foreach(range(1, $step_count) as $step_index) {
+            $step = [
+                'id' => $step_index,
+                'visible' => ($step_index === 1)                        
+            ];
+            if($step_index < $step_count) {
+                $step['choice'] = NULL;
+            }
+        } 
+        return [
+            'steps' => $steps,
+            'ready' => false
+        ];
+    }
+
     public function updateState(array $post_vars) : void
     {
         $step_index = 1;
-        $this->state['steps'] = array_map(
+        foreach($this->state['steps'] as &$step) {
 
-            function($step) use (&$step_index, $post_vars) {
-            
-                if($post_vars['action'] === 'confirm') {
+            if($post_vars['action'] === 'confirm') {
 
-                    if ($step_index < count($this->configured_steps)) { // Beim letzten (Summary-) Step bleibt choices leer
-                        if($step_index === (int) $post_vars['step_id']) {
-                            $step['choice'] = (int) $post_vars['choice'];
-                        } elseif ($step_index > (int) $post_vars['step_id']) {
-                            $step['choice'] = NULL;   
-                        }
+                if ($step_index < count($this->configured_steps)) { // Beim letzten (Summary-) Step bleibt choices leer
+                    if($step_index === (int) $post_vars['step_id']) {
+                        $step['choice'] = (int) $post_vars['choice'];
+                    } elseif ($step_index > (int) $post_vars['step_id']) {
+                        $step['choice'] = NULL;   
                     }
-                    $step['visible'] = ($step_index === ((int)$post_vars['step_id'] + 1));
-
-                } elseif ($post_vars['action'] === 'back') {
-
-                    if ($step_index < count($this->configured_steps)) { // Beim letzten (Summary-) Step bleibt choices leer
-                        if ($step_index >= (int) $post_vars['step_id'] - 1) {
-                            $step['choice'] = NULL;   
-                        }
-                    }
-                    $step['visible'] = ($step_index === ((int)$post_vars['step_id'] - 1));
                 }
-                $step_index++;
-                return $step;
-            },
-            $this->state['steps']
-        );
+                $step['visible'] = ($step_index === ((int)$post_vars['step_id'] + 1));
+
+            } elseif ($post_vars['action'] === 'back') {
+
+                if ($step_index < count($this->configured_steps)) { // Beim letzten (Summary-) Step bleibt choices leer
+                    if ($step_index >= (int) $post_vars['step_id'] - 1) {
+                        $step['choice'] = NULL;   
+                    }
+                }
+                $step['visible'] = ($step_index === ((int)$post_vars['step_id'] - 1));
+            }
+            $step_index++;
+        }
         $this->state['ready'] = ($post_vars['action'] === 'confirm' && (int) $post_vars['step_id'] === count($this->configured_steps));
     }
 
@@ -114,8 +110,8 @@ class Configurator
         );
         $twig_vars = [
             'form_target' => $this->form_target,
-            'steps' => $processed_steps,
             'ready' => $this->state['ready'],
+            'steps' => $processed_steps,
             'summary' => $this->buildSummary($choices_by_id),
             'debug_state' => '<br><br><pre style="font-size: 10px; line-height: 11px">' . print_r($this->state, true) . '</pre>'
         ];
