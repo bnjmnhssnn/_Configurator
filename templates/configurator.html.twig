@@ -1,5 +1,6 @@
 {% block configurator %}
 <section id="configurator">
+    {% set count = count(configurator.steps) %}
     {% for step in configurator.steps %}
         {% include "partials/steps/#{step.type}_step.html.twig" %}
     {% endfor %}

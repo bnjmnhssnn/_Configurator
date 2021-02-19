@@ -7,6 +7,7 @@
             {% set classes = 'configurator-step-wrapper step-hidden' %}  
         {% endif %}
         class="{{ classes }}">
+        {% include "partials/step_indicator.html.twig" %}
         <form 
             class="configurator-step-form"
             method="post"
@@ -36,6 +37,7 @@
                     </tr>
                 {% endfor %}
                 </table>
+                {{ step.info }}
             </fieldset>
             {% if step.id != 1 %}
                 <button type="button" class="configurator-step-btn back-btn">Zurück</button>

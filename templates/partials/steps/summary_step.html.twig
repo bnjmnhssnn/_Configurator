@@ -7,6 +7,7 @@
             {% set classes = 'configurator-step-wrapper step-hidden' %}  
         {% endif %}
         class="{{ classes }}">
+        {% include "partials/step_indicator.html.twig" %}
         <form 
             class="configurator-step-form"
             method="post"
@@ -17,7 +18,7 @@
                 <table class="configurator-table">
                     {% for item in configurator.summary.items %}
                         <tr>
-                            <td>{{ item.name }}</td>
+                            <td>{{ item.summary_name }}</td>
                             <td>{{ item.price_info }}</td>
                             <td>{{ item.price }}€</td>
                         </tr>

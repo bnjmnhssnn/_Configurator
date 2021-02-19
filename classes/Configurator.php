@@ -140,7 +140,7 @@ class Configurator
             $this->state['steps'] 
         )));
         foreach($this->configured_choices as $choice) {
-            if($choice['type'] === 'mandatory_fee') {
+            if(isset($choice['mandatory']) && $choice['mandatory']) {
                 $items[] = $choice;                                                                 
             }
         }

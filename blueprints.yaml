@@ -43,120 +43,129 @@ form:
           -
             id: 1
             name: Grund- oder Förderschule
-            type: school_type
+            summary_name: jährl. pro-Kopf-Gebühr für Grund- und Förderschulen
             price: 4
             price_info: pro SchülerIn und Jahr
             price_class: 3
           - 
             id: 2
             name: Weiterführende Schule
-            type: school_type
+            summary_name: jährl. pro-Kopf-Gebühr für weiterführenden Schulen
             price: 5
             price_info: pro SchülerIn und Jahr
             price_class: 3
           -
             id: 3
             name: Berufsschule
-            type: school_type
+            summary_name: jährl. pro-Kopf-Gebühr für Berufsschulen
             price: 6
             price_info: pro SchülerIn und Jahr
             price_class: 3
           -
             id: 4
             name: Bis 400 SchülerInnen
-            type: student_count
           -
             id: 5
             name: Bis 1200 SchülerInnen
-            type: student_count
           -
             id: 6
             name: Bis 3000 SchülerInnen
-            type: student_count
           -
             id: 7
             name: Portal-M
-            type: hardware
+            summary_name: Server-Hardware Portal-M
             price: 4595
             price_class: 1
+            price_info: einmalig
           -
             id: 8
             name: Portal-L
-            type: hardware
+            summary_name: Server-Hardware Portal-L
             price: 6595
             price_class: 1
+            price_info: einmalig
           -
             id: 9
             name: Portal-XL
-            type: hardware
+            summary_name: Server-Hardware Portal-XL
             price: 11595
             price_class: 1
+            price_info: einmalig
           -
             id: 10
             name: Backup-L
-            type: hardware_backup
+            summary_name: Backup-Hardware Backup-L
             price: 995
             price_class: 1
+            price_info: einmalig
           -
             id: 11
             name: Backup-XL
-            type: hardware_backup
+            summary_name: Backup-Hardware Backup-XL
             price: 1395
             price_class: 1
+            price_info: einmalig
           - 
             id: 12
             name: USV 750VA
-            type: hardware_extra
+            summary_name: Unterbrechungsfr. Stromversorgung USV 750VA
             price: 410
             price_class: 1
+            price_info: einmalig
           - 
             id: 13
             name: USV 750VA 19"
-            type: hardware_extra
+            summary_name: Unterbrechungsfr. Stromversorgung USV 750VA 19"
             price: 625
             price_class: 1
+            price_info: einmalig
           -
             id: 14
             name: Hosting-M
-            type: cloud_hosting
+            summary_name: CloudIServ Hosting-M
             price: 250
             price_info: im Jahr
             price_class: 2
+            price_info: jährlich
           -
             id: 15
             name: Hosting-L
-            type: cloud_hosting
+            summary_name: CloudIServ Hosting-L
             price: 450
             price_info: im Jahr
             price_class: 2
+            price_info: jährlich
           -
             id: 16
             name: Hosting-XL
-            type: cloud_hosting
+            summary_name: CloudIServ Hosting-XL
             price: 800
-            price_info: im Jahr
             price_class: 2
+            price_info: jährlich
           -
             id: 17
             name: Cloud-Backup
-            type: cloud_backup
+            summary_name: Einrichtung Cloud-Backup
             price: 200
-            price_info: einmalige Einrichtungspauschale
             price_class: 1
+            price_info: einmalig
           -
             id: 18
-            name: Grundgebühr
-            type: mandatory_fee
+            name: Grundgebühr pro Jahr
+            summary_name: Grundgebühr pro Jahr
+            mandatory: true
             price: 250
-            price_info: im Jahr
             price_class: 2
+            price_info: jährlich
           -
             id: 19
             name: Einrichtungspauschale
-            type: mandatory_fee
+            summary_name: Einrichtungspauschale
+            mandatory: true
             price: 500
-            price_info: einmalige Einrichtungspauschale
             price_class: 1
+            price_info: einmalig
+
     configurator_tree:
       type: editor
       label: Konfigurator Tree
