@@ -50,7 +50,13 @@ class IServConfiguratorPlugin extends Plugin
     {
         $request = $this->grav['request'];
         if($request->getMethod() === 'POST') {
-            echo 'Form geposteted!';
+            $configurator = new Configurator($this->grav['config'], $this->grav['session']);
+            $configurator->updateState($_POST);
+            $new_state = $configurator->getState();
+            $session = $this->grav['session'];
+            $session->configurator = $new_state;
+            header('Content-Type: application/json');
+            echo json_encode($new_state);
             exit;
         }
     }
