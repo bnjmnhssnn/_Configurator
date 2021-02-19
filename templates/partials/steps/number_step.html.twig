@@ -1,19 +1,25 @@
 {% block number_step %}
-    <form
-        {% if step.visible %}
-            style="border: 1px solid blue"
+    <div 
+        id="step-{{ step.id }}"
+        {% if step.visible == false %}
+            {% set classes = 'configurator-step-wrapper' %} 
+        {% else %}
+            {% set classes = 'configurator-step-wrapper step-hidden' %}  
         {% endif %}
-        class="configurator-step-form"
-        method="post"
-        action="{{ configurator.form_target }}">
-        <input type="hidden" name="step_id" value="{{ step.id }}">
-        <div>
-            <h5>{{ step.title }}</h5>
-            <input type="number">
-        </div>
-        {% if step.id != 1 %}
-            <button type="button" class="configurator-step-btn back-btn">Zurück</button>
-        {% endif %}
-        <button type="button" class="configurator-step-btn confirm-btn">Bestätigen</button>
-    </form>
+        class="{{ classes }}">
+        <form
+            class="configurator-step-form"
+            method="post"
+            action="{{ configurator.form_target }}">
+            <input type="hidden" name="step_id" value="{{ step.id }}">
+            <div>
+                <h5>{{ step.title }}</h5>
+                <input type="number">
+            </div>
+            {% if step.id != 1 %}
+                <button type="button" class="configurator-step-btn back-btn">Zurück</button>
+            {% endif %}
+            <button type="button" class="configurator-step-btn confirm-btn">Bestätigen</button>
+        </form>
+    </div>
 {% endblock %}

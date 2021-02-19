@@ -2,7 +2,6 @@
     
     $(document).on('click', '.configurator-step-btn', function(e) {
         e.preventDefault();
-        alert('submit');
         submitHandler(e);
     });
 
@@ -24,7 +23,7 @@
                 console.log(data);
             },
             success: function (response) {
-                alert('OK');
+                applyNewState(response);
                 console.log(response);
             },
             error: function (response) {
@@ -33,6 +32,27 @@
             }
         });
     }
+
+    var applyNewState = function (response) {
+
+        //var configurator = $('#configurator');
+        var step_wrapper = $('.configurator-step-wrapper');
+        for (step of response.steps) {
+            console.log(step);
+            var wrapper_selector = '#step-' + step.id;
+            var step_wrapper = $(wrapper_selector);
+            console.log(step_wrapper);
+            if(step.visible) {
+                step_wrapper.removeClass('step-hidden');
+            } else {
+                step_wrapper.addClass('step-hidden');
+            }
+           
+        }
+
+    }
+
+
 })();
 
 
