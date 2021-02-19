@@ -168,12 +168,25 @@ final class IServConfiguratorTest extends TestCase
     {
         $config_mock = $this->getConfigMock();
         $session_mock = $this->getSessionMock();
+        $session_mock->configurator = [
+            'steps' => [
+                ['id' => 1, 'visible' => false, 'choice' => 1],
+                ['id' => 2, 'visible' => false, 'choice' => 4],
+                // Diese Wahlmöglichkeit kostet und muss 
+                // in der Zusammenfassung auftauchen -->
+                ['id' => 3, 'visible' => false, 'choice' => 7], 
+                ['id' => 4, 'visible' => true, 'choice' => NULL],
+                ['id' => 5, 'visible' => false, 'choice' => NULL],
+                ['id' => 6, 'visible' => false]
+            ],
+            'ready' => false
+        ];
         $configurator = new Configurator($config_mock, $session_mock);
         $twig_vars = $configurator->getTwigVars();
         // Vorerst nur testen, ob der erste Step korrekt erzeugt wird, später ausführlicher
         $expected_step = [
             'id' => 1,
-            'visible' => true,
+            'visible' => false,
             'title' => 'Schultyp wählen',
             'type' => 'radio',
             'choices' => [
@@ -184,8 +197,10 @@ final class IServConfiguratorTest extends TestCase
         ];
         $this->assertEquals($expected_step, $twig_vars['steps'][0]);
         $expected_summary = [
-            'items' => [],
-            'price_total' => 0
+            'items' => [
+                ['name' => 'Portal-M', 'price_line' => 4595]
+            ],
+            'price_total' => 4595
         ];
         $this->assertEquals($expected_summary, $twig_vars['summary']);
     }
