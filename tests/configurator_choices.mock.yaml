@@ -12,49 +12,57 @@
   type: school_type
 -
   id: 4
-  name: Anzahl der Schüler
+  name: Bis 400 SchülerInnen
   type: student_count
 -
   id: 5
+  name: Bis 1200 SchülerInnen
+  type: student_count
+-
+  id: 6
+  name: Bis 3000 SchülerInnen
+  type: student_count
+-
+  id: 7
   name: Portal-M
   type: hardware
 -
-  id: 6
+  id: 8
   name: Portal-L
   type: hardware
 -
-  id: 7
+  id: 9
   name: Portal-XL
   type: hardware
 -
-  id: 8
+  id: 10
   name: Backup-L
   type: hardware_backup
 -
-  id: 9
+  id: 11
   name: Backup-XL
   type: hardware_backup
 - 
-  id: 10
+  id: 12
   name: USV 750VA
   type: hardware_extra
 - 
-  id: 11
+  id: 13
   name: USV 750VA 19"
   type: hardware_extra
 -
-  id: 12
+  id: 14
   name: Hosting-M
   type: cloud_hosting
 -
-  id: 13
+  id: 15
   name: Hosting-L
   type: cloud_hosting
 -
-  id: 14
+  id: 16
   name: Hosting-XL
   type: cloud_hosting
 -
-  id: 15
+  id: 17
   name: Cloud-Backup
   type: cloud_backup
