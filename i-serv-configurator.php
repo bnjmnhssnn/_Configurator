@@ -57,6 +57,7 @@ class IServConfiguratorPlugin extends Plugin
             $session->configurator = $new_state;
             header('Content-Type: application/json');
             echo json_encode($new_state);
+            #unset($session->configurator);
             exit;
         }
     }
@@ -76,6 +77,9 @@ class IServConfiguratorPlugin extends Plugin
      */
     public function onTwigSiteVariables()
     {
+        $this->grav['assets']->addJs('plugin://i-serv-configurator/assets/configurator.js');
+        $this->grav['assets']->addCss('plugin://i-serv-configurator/assets/configurator.css'); 
+
         $twig = $this->grav['twig'];
         $configurator = new Configurator($this->grav['config'], $this->grav['session']);
         $twig->twig_vars['configurator'] = $configurator->getTwigVars();

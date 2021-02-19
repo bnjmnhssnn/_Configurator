@@ -21,8 +21,8 @@
             {% endfor %}
         </fieldset>
         {% if step.id != 1 %}
-            <button name="action" value="back">Zurück</button>
+            <button type="button" class="configurator-step-btn back-btn">Zurück</button>
         {% endif %}
-        <button name="action" value="confirm">Bestätigen</button>
+        <button type="button" class="configurator-step-btn confirm-btn">Bestätigen</button>
     </form>
 {% endblock %}
