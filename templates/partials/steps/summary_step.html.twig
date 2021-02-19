@@ -17,12 +17,16 @@
                 <table class="configurator-table">
                     {% for item in configurator.summary.items %}
                         <tr>
-                            {% for field in item %}
-                                <td>{{ field }}</td>
-                            {% endfor %}
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.price_info }}</td>
+                            <td>{{ item.price }}€</td>
                         </tr>
                     {% endfor %}
                 </table>
+            </div>
+            <div class="configurator-totals-wrapper">
+                <div>Preis im ersten Jahr: <strong>{{ configurator.summary.price_first_year }}€</strong></div>
+                <div>Preis in den folgenden Jahren: <strong>{{ configurator.summary.price_next_years }}€</strong></div>
             </div>
             {% if step.id != 1 %}
                 <button type="button" class="configurator-step-btn back-btn">Zurück</button>

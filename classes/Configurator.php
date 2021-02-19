@@ -112,34 +112,62 @@ class Configurator
             },
             $this->configured_steps        
         );
-        $items = array_values(array_filter(array_map(
-            function($step_from_state) use ($choices_by_id) {
-                if(empty($step_from_state['choice'])) {
-                    return;
-                }
-                $choice = $choices_by_id[$step_from_state['choice']];
-                if(empty($choice['price'])) {
-                    return;
-                }
-                return [
-                    'name' => $choice['name'],
-                    'price_line' => $choice['price']
-                ];
-            },
-            $this->state['steps'] 
-        )));
-        $summary = [
-            'items' => $items,
-            'price_total' => array_sum(array_column($items, 'price_line'))
-        ];
         $twig_vars = [
             'form_target' => $this->form_target,
             'steps' => $processed_steps,
             'ready' => $this->state['ready'],
-            'summary' => $summary,
+            'summary' => $this->buildSummary($choices_by_id),
             'debug_state' => '<br><br><pre style="font-size: 10px; line-height: 11px">' . print_r($this->state, true) . '</pre>'
         ];
         
         return $twig_vars;
+    }
+
+    protected function buildSummary(array $choices_by_id) : array
+    {
+        $items = array_values(array_filter(array_map(
+            function($step_from_state) use ($choices_by_id) {
+                if(empty($step_from_state['choice'])) {
+                    return;
+                } else {
+                    $choice = $choices_by_id[$step_from_state['choice']];
+                    if(empty($choice['price'])) {
+                        return '';
+                    }
+                    return $choice;
+                }
+            },
+            $this->state['steps'] 
+        )));
+        foreach($this->configured_choices as $choice) {
+            if($choice['type'] === 'mandatory_fee') {
+                $items[] = $choice;                                                                 
+            }
+        }
+        $summary = [
+            'items' => $items,
+            'price_first_year' => $this->getYearlyTotal($items, 'first'),
+            'price_next_years' => $this->getYearlyTotal($items, 'next')
+        ];
+        return $summary;
+    }
+
+    protected function getYearlyTotal(array $items, $type) : int
+    {
+        return array_reduce(
+            $items,
+            function($carry, $item) use ($type) {
+                if($type === 'first') {
+                    $carry += $item['price'];
+                } elseif ($type === 'next') {
+                    if($item['price_class'] !== 1) {
+                        $carry += $item['price'];
+                    }
+                }
+                return $carry;
+            },
+            0
+        );
+
     }
 }

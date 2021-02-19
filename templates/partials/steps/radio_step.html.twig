@@ -14,16 +14,28 @@
             <input type="hidden" name="step_id" value="{{ step.id }}">
             <h5>{{ step.title }}</h5>
             <fieldset>
-                {% for choice in step.choices %}
-                    <div>
-                        <input 
-                            type="radio" 
-                            id="step-{{ step.id }}-choice-{{ choice.id }}" 
-                            name="choice" 
-                            value="{{choice.id}}">
-                        <label for="step-{{ step.id }}-choice-{{ choice.id }}">{{ choice.name }}&nbsp;&nbsp;{{ choice.price }} €</label> 
-                    </div>
+                <table class="configurator-choice-table">
+                {% for choice in step.choices %} 
+                    {% if choice.price %}
+                        {% set price = "<td class=\"price-cell\">#{choice.price}€</td>" %}
+                    {% endif %}
+                    {% if choice.price_info %}
+                        {% set price_info = "<td class=\"price-info-cell\">#{choice.price_info}</td>" %}
+                    {% endif %}
+                    <tr>
+                        <td class="input-cell">
+                            <input 
+                                type="radio" 
+                                id="step-{{ step.id }}-choice-{{ choice.id }}" 
+                                name="choice" 
+                                value="{{choice.id}}">
+                        </td>
+                        <td class="name-cell">{{ choice.name }}</td>
+                        {{ price }}
+                        {{ price_info }}
+                    </tr>
                 {% endfor %}
+                </table>
             </fieldset>
             {% if step.id != 1 %}
                 <button type="button" class="configurator-step-btn back-btn">Zurück</button>

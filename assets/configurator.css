@@ -10,6 +10,22 @@
 .configurator-step-wrapper.step-hidden {
     display: none;
 }
+.configurator-choice-table {
+    margin-bottom: 1em;
+}
+.configurator-choice-table .input-cell {
+    padding: 0 0.5em 0 0;     
+}
+.configurator-choice-table .name-cell {
+    padding: 0 0.5em 0 0.5em;   
+}
+.configurator-choice-table .price-cell {
+    text-align: right;
+    padding: 0 0.5em 0 0.5em; 
+}
+.configurator-choice-table .price-info-cell {
+    padding: 0 0.5em 0 0.5em;  
+}
 .configurator-step-btn {
     padding: 0.5em;
     border: none;
@@ -36,4 +52,8 @@
 }
 .configurator-table td:last-child {
     text-align: right;
+}
+.configurator-totals-wrapper {
+    text-align: right;
+    color: black;
 }
