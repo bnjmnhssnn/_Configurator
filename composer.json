@@ -1,0 +1,29 @@
+{
+  "name": "bnjmnhssnn/i-serv-configurator",
+  "type": "grav-plugin",
+  "description": "IServ Produktkonfigurator",
+  "keywords": ["plugin"],
+  "homepage": "https://github.com/bnjmnhssnn/grav-plugin-i-serv-configurator",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Benjamin Hosseinian",
+      "email": "info@benjamin-hosseinian.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Grav\\Plugin\\IServConfigurator\\": "classes/"
+    },
+    "classmap":  ["i-serv-configurator.php"]
+  },
+  "config": {
+    "platform": {
+      "php": "7.1.3"
+    }
+  }
+}
