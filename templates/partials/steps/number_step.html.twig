@@ -1,5 +1,8 @@
 {% block number_step %}
     <form
+        {% if step.visible %}
+            style="border: 1px solid blue"
+        {% endif %}
         class="configurator-step-form"
         method="post"
         action="{{ configurator.form_target }}">

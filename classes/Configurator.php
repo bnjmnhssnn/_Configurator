@@ -71,7 +71,7 @@ class Configurator
         return [
             'form_target' => $this->form_target,
             'steps' => $processed_steps,
-            'debug_state' => '<pre style="font-size: 10px; line-height: 11px">' . print_r($this->state, true) . '</pre>'
+            'debug_state' => '<br><br><pre style="font-size: 10px; line-height: 11px">' . print_r($this->state, true) . '</pre>'
         ];
     }
 }
