@@ -26,3 +26,14 @@
 .configurator-step-btn.confirm-btn:hover {
     background-color: #007bff;   
 }
+.configurator-table-wrapper {
+    padding-bottom: 1em;
+    border-bottom: 2px solid grey;
+    margin-bottom: 1em;
+}
+.configurator-table {
+    width: 100%;
+}
+.configurator-table td:last-child {
+    text-align: right;
+}

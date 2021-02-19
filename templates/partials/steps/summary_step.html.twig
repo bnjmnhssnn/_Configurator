@@ -13,7 +13,17 @@
             action="{{ configurator.form_target }}">
             <input type="hidden" name="step_id" value="{{ step.id }}">
             <h4>{{ step.title }}</h4>
-            
+            <div class="configurator-table-wrapper">
+                <table class="configurator-table">
+                    {% for item in configurator.summary.items %}
+                        <tr>
+                            {% for field in item %}
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
             {% if step.id != 1 %}
                 <button type="button" class="configurator-step-btn back-btn">Zurück</button>
             {% endif %}

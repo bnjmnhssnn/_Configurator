@@ -68,46 +68,61 @@ form:
             id: 7
             name: Portal-M
             type: hardware
+            price: 4595
           -
             id: 8
             name: Portal-L
             type: hardware
+            price: 6595
           -
             id: 9
             name: Portal-XL
             type: hardware
+            price: 11595
           -
             id: 10
             name: Backup-L
             type: hardware_backup
+            price: 995
           -
             id: 11
             name: Backup-XL
             type: hardware_backup
+            price: 1395
           - 
             id: 12
             name: USV 750VA
             type: hardware_extra
+            price: 410
           - 
             id: 13
             name: USV 750VA 19"
             type: hardware_extra
+            price: 625
           -
             id: 14
             name: Hosting-M
             type: cloud_hosting
+            price: 250
+            price_info: im Jahr
           -
             id: 15
             name: Hosting-L
             type: cloud_hosting
+            price: 450
+            price_info: im Jahr
           -
             id: 16
             name: Hosting-XL
             type: cloud_hosting
+            price: 800
+            price_info: im Jahr
           -
             id: 17
             name: Cloud-Backup
             type: cloud_backup
+            price: 200
+            price_info: Einrichtungspauschale
     configurator_tree:
       type: editor
       label: Konfigurator Tree

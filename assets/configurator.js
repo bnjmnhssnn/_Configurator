@@ -23,7 +23,8 @@
                 console.log(data);
             },
             success: function (response) {
-                applyNewState(response);
+                //applyNewState(response);
+                location.reload();
                 console.log(response);
             },
             error: function (response) {
@@ -38,10 +39,8 @@
         //var configurator = $('#configurator');
         var step_wrapper = $('.configurator-step-wrapper');
         for (step of response.steps) {
-            console.log(step);
             var wrapper_selector = '#step-' + step.id;
             var step_wrapper = $(wrapper_selector);
-            console.log(step_wrapper);
             if(step.visible) {
                 step_wrapper.removeClass('step-hidden');
             } else {

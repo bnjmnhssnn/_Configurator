@@ -112,12 +112,34 @@ class Configurator
             },
             $this->configured_steps        
         );
-
-        return [
+        $items = array_values(array_filter(array_map(
+            function($step_from_state) use ($choices_by_id) {
+                if(empty($step_from_state['choice'])) {
+                    return;
+                }
+                $choice = $choices_by_id[$step_from_state['choice']];
+                if(empty($choice['price'])) {
+                    return;
+                }
+                return [
+                    'name' => $choice['name'],
+                    'price_line' => $choice['price']
+                ];
+            },
+            $this->state['steps'] 
+        )));
+        $summary = [
+            'items' => $items,
+            'price_total' => array_sum(array_column($items, 'price_line'))
+        ];
+        $twig_vars = [
             'form_target' => $this->form_target,
             'steps' => $processed_steps,
             'ready' => $this->state['ready'],
+            'summary' => $summary,
             'debug_state' => '<br><br><pre style="font-size: 10px; line-height: 11px">' . print_r($this->state, true) . '</pre>'
         ];
+        
+        return $twig_vars;
     }
 }

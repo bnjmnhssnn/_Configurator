@@ -169,8 +169,9 @@ final class IServConfiguratorTest extends TestCase
         $config_mock = $this->getConfigMock();
         $session_mock = $this->getSessionMock();
         $configurator = new Configurator($config_mock, $session_mock);
+        $twig_vars = $configurator->getTwigVars();
         // Vorerst nur testen, ob der erste Step korrekt erzeugt wird, später ausführlicher
-        $expected = [
+        $expected_step = [
             'id' => 1,
             'visible' => true,
             'title' => 'Schultyp wählen',
@@ -181,7 +182,12 @@ final class IServConfiguratorTest extends TestCase
                 ['id' => 3, 'name' => 'Berufsschule', 'type' => 'school_type'],
             ]
         ];
-        $this->assertEquals($expected, $configurator->getTwigVars()['steps'][0]);
+        $this->assertEquals($expected_step, $twig_vars['steps'][0]);
+        $expected_summary = [
+            'items' => [],
+            'price_total' => 0
+        ];
+        $this->assertEquals($expected_summary, $twig_vars['summary']);
     }
 
     protected function getConfigMock()
