@@ -36,7 +36,36 @@ class Configurator
         }
     }
 
-    public function getState()
+    public function updateState(array $post_vars) : void
+    {
+        $step_index = 1;
+        $this->state['steps'] = array_map(
+            function($step) use (&$step_index, $post_vars) {
+                
+                if($post_vars['action'] === 'confirm') {
+
+                    if($step_index === (int) $post_vars['step_id']) {
+                        $step['choice'] = (int) $post_vars['choice'];
+                    } elseif ($step_index > (int) $post_vars['step_id']) {
+                        $step['choice'] = NULL;   
+                    }
+                    $step['visible'] = ($step_index === ((int)$post_vars['step_id'] + 1));
+
+                } elseif ($post_vars['action'] === 'back') {
+
+                    if ($step_index >= (int) $post_vars['step_id'] - 1) {
+                        $step['choice'] = NULL;   
+                    }
+                    $step['visible'] = ($step_index === ((int)$post_vars['step_id'] - 1));
+                }
+                $step_index++;
+                return $step;
+            },
+            $this->state['steps']
+        ); 
+    }
+
+    public function getState() : array
     {
         return $this->state;
     }

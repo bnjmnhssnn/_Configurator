@@ -49,6 +49,68 @@ final class IServConfiguratorTest extends TestCase
         $this->assertEquals($expected_state, $configurator->getState());
     }
 
+    public function testStateUpdateConfirm() : void
+    {
+        $config_mock = $this->getConfigMock();
+        $session_mock = $this->getSessionMock();
+        $configurator = new Configurator($config_mock, $session_mock);
+
+        // User bestätigt Step 1
+        $post_vars = [
+            'step_id' => 1,
+            'choice' => 1,
+            'action' => 'confirm'
+        ];
+        $expected_state_after_update = [
+            'steps' => [
+                ['id' => 1, 'visible' => false, 'choice' => 1],
+                ['id' => 2, 'visible' => true, 'choice' => NULL],
+                ['id' => 3, 'visible' => false, 'choice' => NULL],
+                ['id' => 4, 'visible' => false, 'choice' => NULL],
+                ['id' => 5, 'visible' => false, 'choice' => NULL]
+            ]
+        ];
+        $configurator->updateState($post_vars);
+        $this->assertEquals($expected_state_after_update, $configurator->getState());   
+    }
+
+    public function testStateUpdateBack() : void
+    {
+        $config_mock = $this->getConfigMock();
+        $session_mock = $this->getSessionMock();
+
+        // Step 1 und 2 sind bereits bestätigt und in der Session gespeichert,
+        // Step 3 ist also aktiv
+        $session_mock->configurator = [
+            'steps' => [
+                ['id' => 1, 'visible' => false, 'choice' => 1],
+                ['id' => 2, 'visible' => false, 'choice' => 4],
+                ['id' => 3, 'visible' => true, 'choice' => NULL],
+                ['id' => 4, 'visible' => false, 'choice' => NULL],
+                ['id' => 5, 'visible' => false, 'choice' => NULL]
+            ]
+        ];
+        $configurator = new Configurator($config_mock, $session_mock);
+
+        // User klickt "Zurück" Button in Step 3
+        $post_vars = [
+            'step_id' => 3,
+            'action' => 'back'
+        ];
+        $expected_state_after_update = [
+            'steps' => [
+                ['id' => 1, 'visible' => false, 'choice' => 1],
+                ['id' => 2, 'visible' => true, 'choice' => NULL],
+                ['id' => 3, 'visible' => false, 'choice' => NULL],
+                ['id' => 4, 'visible' => false, 'choice' => NULL],
+                ['id' => 5, 'visible' => false, 'choice' => NULL]
+            ]
+        ];
+        $configurator->updateState($post_vars);
+        $this->assertEquals($expected_state_after_update, $configurator->getState());   
+    }
+
+
     public function testTwigVarsOutput() : void
     {
         $config_mock = $this->getConfigMock();
