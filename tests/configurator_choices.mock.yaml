@@ -1,0 +1,60 @@
+-
+  id: 1
+  name: Grund- oder Förderschule
+  type: school_type
+- 
+  id: 2
+  name: Weiterführend Schule
+  type: school_type
+-
+  id: 3
+  name: Berufsschule
+  type: school_type
+-
+  id: 4
+  name: Anzahl der Schüler
+  type: student_count
+-
+  id: 5
+  name: Portal-M
+  type: hardware
+-
+  id: 6
+  name: Portal-L
+  type: hardware
+-
+  id: 7
+  name: Portal-XL
+  type: hardware
+-
+  id: 8
+  name: Backup-L
+  type: hardware_backup
+-
+  id: 9
+  name: Backup-XL
+  type: hardware_backup
+- 
+  id: 10
+  name: USV 750VA
+  type: hardware_extra
+- 
+  id: 11
+  name: USV 750VA 19"
+  type: hardware_extra
+-
+  id: 12
+  name: Hosting-M
+  type: cloud_hosting
+-
+  id: 13
+  name: Hosting-L
+  type: cloud_hosting
+-
+  id: 14
+  name: Hosting-XL
+  type: cloud_hosting
+-
+  id: 15
+  name: Cloud-Backup
+  type: cloud_backup
